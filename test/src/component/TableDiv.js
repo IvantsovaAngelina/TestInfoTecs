@@ -1,32 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function TableDiv() {
-  const [data, setData] = useState([
-    {
-      key: '1',
-      name: 'John Brown',
-      gender: 'man',
-      age: 32,
-      phone: '+7987557766',
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      gender: 'man',
-      age: 42,
-      phone: '+7987557766',
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Anna Brown',
-      gender: 'woman',
-      age: 32,
-      phone: '+7987557766',
-      address: 'Sidney No. 1 Lake Park',
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getAllUser = () => {
+      fetch('https://dummyjson.com/users')
+        .then(res => res.json())
+        .then(data => {
+          setUsers(data.users);
+        })
+        .catch(error => console.error('Error fetching users:', error));
+    };
+
+    getAllUser();
+  }, []); 
+
+  console.log(users)
 
   return (
     <main>
@@ -42,13 +32,15 @@ function TableDiv() {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
-              <tr key={item.key}>
-                <td>{item.name}</td>
+            {users.map((item, index) => (
+              <tr key={index}>
+                <td>{item.firstName} {item.lastName} {item.maidenName}</td>
                 <td>{item.age}</td>
                 <td>{item.gender}</td>
                 <td>{item.phone}</td>
-                <td>{item.address}</td>
+                <td>
+                  {item.address.address}, {item.address.city}, {item.address.state} {item.address.postalCode}
+                </td>
               </tr>
             ))}
           </tbody>
