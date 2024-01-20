@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react';
+import InputSearch from './InputSearch';
 
 function TableDiv() {
   const [users, setUsers] = useState([]);
@@ -20,6 +21,7 @@ function TableDiv() {
 
   return (
     <main>
+      <InputSearch/>
       <div className="tableDiv">
         <table className="table table-striped">
           <thead>
