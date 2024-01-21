@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar'; 
+import ModalWindow from './ModalWindow';
 
 function TableDiv() {
   const [users, setUsers] = useState([]);
@@ -24,25 +25,43 @@ function TableDiv() {
     <main>
       <SearchBar onSearch={fetchUsers} />
       <div className="tableDiv">
-        <table className="table table-striped">
+        <table className="tableUser">
           <thead>
-            <tr>
+            <tr className='titleBody'>
               <th>ФИО</th>
               <th>Возраст</th>
               <th>Пол</th>
               <th>Номер телефона</th>
               <th>Адрес</th>
+              <th>Подробнее</th>
             </tr>
           </thead>
           <tbody>
             {users.map((item, index) => (
               <tr key={index}>
-                <td>{item.firstName} {item.lastName}</td>
+                <td>{item.firstName} {item.lastName} {item.maidenName}</td>
                 <td>{item.age}</td>
                 <td>{item.gender}</td>
                 <td>{item.phone}</td>
                 <td>
-                  {item.address.address}, {item.address.city}, {item.address.state} {item.address.postalCode}
+                  {item.address.address}, {item.address.city}
+                </td>
+                <td>
+                  <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#user${item.id}`}>Подробнее</button>
+                  <ModalWindow 
+                        id={item.id} 
+                        firstName={item.firstName} 
+                        lastName={item.lastName} 
+                        maidenName={item.maidenName} 
+                        age={item.age} 
+                        gender={item.gender}
+                        phone={item.phone} 
+                        city={item.address.city}  
+                        address={item.address.address}
+                        email={item.email}
+                        weight={item.weight}
+                        height={item.height}
+                    />
                 </td>
               </tr>
             ))}

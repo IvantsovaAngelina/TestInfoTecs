@@ -2,3 +2,50 @@
   text-align: center;
 }
 
+.tableDiv {
+  margin-top: 15px;
+}
+
+main {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background-color: rgb(166, 196, 250);
+  padding: 5px;
+}
+
+tbody tr:nth-child(even){
+  background-color: rgb(208, 222, 247);
+}
+
+tbody tr:nth-child(odd){
+  background-color: rgb(226, 233, 246);
+}
+
+.titleBody {
+  height: 45px;
+}
+
+.searchDiv {
+  margin-top: 10px;
+}
+
+.inputSearch {
+  width: 30%;
+  padding: 5px;
+}
+
+.userInfo {
+  text-align: left;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.userInfo span {
+  font-weight: 500;
+}

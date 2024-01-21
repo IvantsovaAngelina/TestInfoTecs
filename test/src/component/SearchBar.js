@@ -12,10 +12,11 @@ function SearchBar({ onSearch }) {
   return (
     <div className="searchDiv">
       <input
+        className='inputSearch'
         type="text"
         value={searchQuery}
         onChange={handleSearch}
-        placeholder="Search..."
+        placeholder="Поиск..."
       />
     </div>
   );
