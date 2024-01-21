@@ -1,6 +1,5 @@
-// TableDiv.js
 import React, { useState, useEffect } from 'react';
-import SearchBar from './SearchBar'; // Make sure the path is correct
+import SearchBar from './SearchBar'; 
 
 function TableDiv() {
   const [users, setUsers] = useState([]);
@@ -16,7 +15,7 @@ function TableDiv() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setUsers(data.users || data); // Adjust according to the API response
+        setUsers(data.users || data); 
       })
       .catch((error) => console.error('Error fetching users:', error));
   };
