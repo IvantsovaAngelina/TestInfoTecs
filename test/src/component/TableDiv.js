@@ -1,27 +1,29 @@
-import React, { useState, useEffect} from 'react';
-import InputSearch from './InputSearch';
+// TableDiv.js
+import React, { useState, useEffect } from 'react';
+import SearchBar from './SearchBar'; // Make sure the path is correct
 
 function TableDiv() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const getAllUser = () => {
-      fetch('https://dummyjson.com/users')
-        .then(res => res.json())
-        .then(data => {
-          setUsers(data.users);
-        })
-        .catch(error => console.error('Error fetching users:', error));
-    };
+    fetchUsers();
+  }, []);
 
-    getAllUser();
-  }, []); 
-
-  console.log(users)
+  const fetchUsers = (query = '') => {
+    const url = query
+      ? `https://dummyjson.com/users/search?q=${query}`
+      : 'https://dummyjson.com/users';
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data.users || data); // Adjust according to the API response
+      })
+      .catch((error) => console.error('Error fetching users:', error));
+  };
 
   return (
     <main>
-      <InputSearch/>
+      <SearchBar onSearch={fetchUsers} />
       <div className="tableDiv">
         <table className="table table-striped">
           <thead>
@@ -36,7 +38,7 @@ function TableDiv() {
           <tbody>
             {users.map((item, index) => (
               <tr key={index}>
-                <td>{item.firstName} {item.lastName} {item.maidenName}</td>
+                <td>{item.firstName} {item.lastName}</td>
                 <td>{item.age}</td>
                 <td>{item.gender}</td>
                 <td>{item.phone}</td>
