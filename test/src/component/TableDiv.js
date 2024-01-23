@@ -4,6 +4,7 @@ import ModalWindow from './ModalWindow';
 
 function TableDiv() {
   const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     fetchUsers();
@@ -14,16 +15,27 @@ function TableDiv() {
       ? `https://dummyjson.com/users/search?q=${query}`
       : 'https://dummyjson.com/users';
     fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data.users || data); 
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Ошибка! Сообщение: ${res.status}`);
+        }
+        return res.json();
       })
-      .catch((error) => console.error('Error fetching users:', error));
+      .then((data) => {
+        setUsers(data.users || data);
+        setError(null);
+      })
+      .catch((error) => {
+        console.error('Ошибка в получении списка пользователей:', error);
+        setError('Не удалось обработать запрос. Попробуйте позже.'); 
+      });
   };
+
 
   return (
     <main>
       <SearchBar onSearch={fetchUsers} />
+      {error && <div className="error">{error}</div>} 
       <div className="tableDiv">
         <table className="tableUser">
           <thead>
